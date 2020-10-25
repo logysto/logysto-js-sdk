@@ -1,8 +1,8 @@
 {
   "name": "logysto-sdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "keywords": [
     "logysto",
     "vueltap",
@@ -10,7 +10,7 @@
     "api"
   ],
   "scripts": {
-    "build": "tsc",
+    "start": "node index.js",
     "test": "mocha --reporter spec"
   },
   "devDependencies": {
