@@ -5,10 +5,9 @@ const constants = require("../config/constants");
 var apiKey;
 var email;
 var type;
-var client;
 
 exports.config = async (apiKey, email, type = "user")=>{
-    console.log("credentials", apiKey, email, type);
+    
     this.apiKey = apiKey;
     this.email = email;
     this.type = type;
@@ -18,17 +17,17 @@ exports.config = async (apiKey, email, type = "user")=>{
     };
 }
 
-client = axios.create({
-    baseURL: constants.LOGYSTO_END_POINT,
-    timeout: 1000,
-    headers: {"private-key": this.apiKey, "token": this.email, "type": this.type}
-  });
 
 exports.searchAddress = async(address, city) =>{
     try {
         if(this.apiKey && this.email){
-            console.log("URL", constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" +  encodeURIComponent(address));
-            const response = await client.get(constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" +  encodeURIComponent(address));
+
+            var options = {
+                headers: {"private-key": this.apiKey, "token": this.email, "type": this.type}
+            };
+
+            console.log("URL", constants.LOGYSTO_END_POINT + constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" +  encodeURIComponent(address));
+            const response = await axios.get(constants.LOGYSTO_END_POINT + constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" +  encodeURIComponent(address), options);
             if(response){
                 if(response.status == 200 || response.status == 201){
                     return{
