@@ -1,5 +1,5 @@
 'use-stric'
-const { config, getPrice, searchAddress } =require("./src/controllers/logysto-sdk");
+const { config, getPriceFromLocations, searchAddress } =require("./src/controllers/logysto-sdk");
 exports.config = config;
-exports.getPrice = getPrice;
+exports.getPrice = getPriceFromLocations;
 exports.searchAddress = searchAddress;

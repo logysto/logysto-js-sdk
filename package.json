@@ -1,7 +1,8 @@
 {
   "name": "logysto-sdk",
-  "version": "1.0.30",
-  "description": "",
+  "version": "1.0.32",
+  "description": "Logysto SDK Api",
+  "license": "MIT",
   "main": "index.js",
   "keywords": [
     "logysto",
@@ -16,13 +17,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.0",
-    "tslint": "^6.1.3",
-    "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@types/node": "^14.14.2",
-    "axios": "^0.21.0",
-    "express": "^4.17.1"
+    "axios": "^0.21.0"
   }
 }
