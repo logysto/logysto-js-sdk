@@ -1,1 +1,1 @@
-Logysto SDK
+# Logysto Node SDK
