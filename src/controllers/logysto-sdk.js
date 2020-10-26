@@ -33,9 +33,11 @@ exports.searchAddress = async(address, city) =>{
             const response = await axios.get(ENDPOINT+ constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" +  encodeURIComponent(address), options);
             if(response){
                 if(response.status == 200 || response.status == 201){
+                    console.log("res >>>>", response.data.response);
+                    let result = JSON.parse(JSON.stringify(response.data.response));
                     return{
                         success: true,
-                        response: JSON.parse(response.data.response)
+                        response: result
                     };
                 }else{
                     return{
