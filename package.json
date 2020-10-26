@@ -1,4 +1,5 @@
 {
+  "name": "logysto-node-sdk",
   "__name__": "@logysto/logysto-node-sdk",
   "version": "1.0.1",
   "description": "Logysto SDK Api",
