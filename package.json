@@ -1,6 +1,6 @@
 {
-  "name": "logysto-sdk",
-  "version": "1.0.33",
+  "name": "logysto-node-sdk",
+  "version": "1.0.34",
   "description": "Logysto SDK Api",
   "license": "MIT",
   "main": "index.js",
