@@ -8,7 +8,7 @@ var type;
 var environment;
 var ENDPOINT = constants.LOGYSTO_END_POINT;
 
-exports.config = async (apiKey, email, type = "user", environment ="production")=>{
+exports.config = async (apiKey, email, environment ="production", type = "user")=>{
     this.apiKey = apiKey;
     this.email = email;
     this.type = type;

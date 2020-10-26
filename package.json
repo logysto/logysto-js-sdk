@@ -1,10 +1,10 @@
 {
-  "__name__": "logysto-node-sdk",
-  "name": "@logysto/logysto-node-sdk",
-  "version": "1.0.2",
+  "name": "logysto-node-sdk",
+  "__name__": "@logysto/logysto-node-sdk",
+  "version": "1.0.3",
   "description": "Logysto SDK Api",
   "license": "MIT",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "__publishConfig__": { "registry": "https://npm.pkg.github.com/" },
   "main": "index.js",
   "keywords": [
     "logysto",
