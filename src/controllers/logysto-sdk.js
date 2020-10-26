@@ -144,3 +144,12 @@ exports.createDelivery = async()=>{
         };
     }
 }
+
+
+exports.getTraceabilityByCode = async() => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
