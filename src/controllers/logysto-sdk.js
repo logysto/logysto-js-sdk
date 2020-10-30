@@ -1,4 +1,4 @@
-'uses-strict'
+'uses-strict';
 const axios = require("axios");
 const constants = require("../config/constants");
 
@@ -20,7 +20,7 @@ exports.config = async (apiKey, email, environment ="production", type = "user")
         success: true,
         message: "Configured"
     };
-}
+};
 
 
 exports.searchAddress = async(address, city) =>{
@@ -44,14 +44,14 @@ exports.searchAddress = async(address, city) =>{
                         success: false,
                         error: response.data,
                         erroCode: response.status
-                    }
+                    };
                 }
             }else{
                 return{
                     success: false,
                     error: "No server response",
                     erroCode: "99"
-                }
+                };
             }
         }else{
             return{
@@ -67,7 +67,7 @@ exports.searchAddress = async(address, city) =>{
             errorCode: 99
         };
     } 
-}
+};
 
 exports.getPriceFromLocations = async(initLocation, endLocation) =>{
     try {
@@ -105,14 +105,14 @@ exports.getPriceFromLocations = async(initLocation, endLocation) =>{
                         success: false,
                         error: response.data,
                         erroCode: response.status
-                    }
+                    };
                 }
             }else{
                 return{
                     success: false,
                     error: "No server response",
                     erroCode: "99"
-                }
+                };
             }
         }else{
             return{
@@ -129,7 +129,7 @@ exports.getPriceFromLocations = async(initLocation, endLocation) =>{
             errorCode: 99
         }; 
     }
-}
+};
 
 exports.createDelivery = async()=>{
     try {
@@ -141,7 +141,7 @@ exports.createDelivery = async()=>{
             errorCode: 99
         };
     }
-}
+};
 
 
 exports.getTraceabilityByCode = async(code) => {
@@ -212,4 +212,4 @@ exports.getTraceabilityByCode = async(code) => {
             errorCode: 99
         };
     }
-}
+};
