@@ -4,4 +4,4 @@ module.exports = {
     LOGYSTO_GET_PRICE_PATH: "/User/GetPricePublic",
     LOGYSTO_SEARCH_ADDRESS_PATH: "/Addresses/Search/",
     LOGYSTO_GET_TRACE_BY_CODE: "/DeliveryTraceByCode/"
-}
+};
