@@ -23,6 +23,64 @@ exports.config = async (apiKey, email, environment = "production", type = "user"
 };
 
 
+exports.sendNotificationOTP = async function(mobilephone, message){
+    try {
+        if (this.apiKey && this.email) {
+            if (mobilephone && message) {
+                var options = {
+                    headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                };
+
+                const bodyRequest = {
+                    mobilephone: mobilephone,
+                    message: message
+                };
+
+                console.log("URL", ENDPOINT + constants.LOGYSTO_SEND_OTP);
+                const response = await axios.post(ENDPOINT + constants.LOGYSTO_SEND_OTP, bodyRequest, options);
+                if (response) {
+                    if (response.status == 200 || response.status == 201) {
+                        console.log("res >>>>", response.data.response);
+                        let result = JSON.parse(JSON.stringify(response.data.response));
+                        return {
+                            success: true,
+                            response: result
+                        };
+                    } else {
+                        return {
+                            success: false,
+                            error: response.data,
+                            erroCode: response.status
+                        };
+                    }
+                } else {
+                    return {
+                        success: false,
+                        error: "No server response",
+                        erroCode: "99"
+                    };
+                }
+
+            } else {
+                return { status: false, error: "Invalid params", errorCode: 99 };
+            }
+        } else {
+            return {
+                success: false,
+                error: "Invalid credentials",
+                errorCode: 99
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message,
+            errorCode: 99
+        };
+    }
+};
+
+
 exports.checkAddressCoverage = async function(address, city){
     try {
         if (this.apiKey && this.email) {

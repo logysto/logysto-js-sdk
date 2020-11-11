@@ -4,6 +4,7 @@ module.exports = {
     LOGYSTO_GET_PRICE_PATH: "/User/GetPricePublic",
     LOGYSTO_SEARCH_ADDRESS_PATH: "/Addresses/Search/",
     LOGYSTO_GET_TRACE_BY_CODE: "/DeliveryTraceByCode/",
-    LOGYSTO_CHECK_USER_EMAIL: "/User/check/email",
-    LOGYSTO_CHECK_ADDRESS_AVAILABILITY: "/Addres/Check"
+    LOGYSTO_CHECK_USER_EMAIL: "/User/Check/Email",
+    LOGYSTO_CHECK_ADDRESS_AVAILABILITY: "/Addres/Check",
+    LOGYSTO_SEND_OTP: "/User/Send/Otp"
 };
