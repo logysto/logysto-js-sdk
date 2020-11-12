@@ -146,15 +146,20 @@ exports.checkUserEmail = async (email) => {
                 var options = {
                     headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
                 };
-                console.log("URL", ENDPOINT + constants.LOGYSTO_CHECK_USER_EMAIL + "/" + encodeURIComponent(email));
-                const response = await axios.get(ENDPOINT + constants.LOGYSTO_SEARCH_ADDRESS_PATH + "/" + encodeURIComponent(email), options);
+
+                const bodyRequest = {
+                    "email": email
+                };
+
+                console.log("URL", ENDPOINT + constants.LOGYSTO_CHECK_USER_EMAIL, email);
+                const response = await axios.post(ENDPOINT + constants.LOGYSTO_CHECK_USER_EMAIL, bodyRequest, options);
                 if (response) {
                     if (response.status == 200 || response.status == 201) {
                         console.log("res >>>>", response.data.response);
-                        let result = JSON.parse(JSON.stringify(response.data.response));
+                        let result = JSON.parse(JSON.stringify(response.data));
                         return {
                             success: true,
-                            response: result
+                            response: result.message
                         };
                     } else {
                         return {
