@@ -23,16 +23,17 @@ exports.config = async (apiKey, email, environment = "production", type = "user"
 };
 
 
-exports.sendNotificationOTP = async function(mobilephone, message){
+exports.sendNotificationOTP = async function(mobilephone, message, email){
     try {
         if (this.apiKey && this.email) {
-            if (mobilephone && message) {
+            if (mobilephone && message && email) {
                 var options = {
                     headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
                 };
 
                 const bodyRequest = {
                     mobilephone: mobilephone,
+                    email: email,
                     message: message
                 };
 
