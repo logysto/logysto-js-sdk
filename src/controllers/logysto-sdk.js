@@ -329,8 +329,59 @@ LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) =
 
 LogystoSdk.prototype.createDelivery = async () => {
     try {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
+            const options = {
+                headers: { "private-key": apiKey, "token": email, "type": type }
+            };
+            const locationsRequest = [];
+            locationsRequest.push(initLocation);
+            locationsRequest.push(endLocation);
 
+            const bodyRequest = {
+                insurance_value: 0,
+                is_roundtrip: false,
+                locations: locationsRequest
+            };
+            console.log("URL", ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH);
+            const response = await axios.post(ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH, bodyRequest, options);
+            if (response) {
+                if (response.status == 200 || response.status == 201) {
+                    if (response.data.status) {
+                        return {
+                            success: true,
+                            response: JSON.parse(JSON.stringify(response.data.response))
+                        };
+                    } else {
+                        return {
+                            success: false,
+                            error: response.data.message,
+                            erroCode: response.status
+                        };
+                    }
+                } else {
+                    return {
+                        success: false,
+                        error: response.data,
+                        erroCode: response.status
+                    };
+                }
+            } else {
+                return {
+                    success: false,
+                    error: "No server response",
+                    erroCode: "99"
+                };
+            }
+        } else {
+            return {
+                success: false,
+                error: "Invalid credentials",
+                errorCode: 99
+            };
+        }
     } catch (error) {
+        console.log(error);
         return {
             success: false,
             error: error.message,
@@ -339,6 +390,68 @@ LogystoSdk.prototype.createDelivery = async () => {
     }
 };
 
+LogystoSdk.prototype.checkOtp = async(otp, mobilephone, email = null) =>{
+    try {
+        console.log("cred", apiKey, email);
+        if (otp && (mobilephone || email)) {
+            const options = {
+                headers: { "private-key": apiKey, "token": email, "type": type }
+            };
+            const locationsRequest = [];
+            locationsRequest.push(initLocation);
+            locationsRequest.push(endLocation);
+
+            const bodyRequest = {
+                mobilephone: mobilephone,
+                otp: otp,
+                email: email
+            };
+            console.log("URL", ENDPOINT + constants.LOGYSTO_CHECK_OTP);
+            const response = await axios.post(ENDPOINT + constants.LOGYSTO_CHECK_OTP, bodyRequest, options);
+            if (response) {
+                if (response.status == 200 || response.status == 201) {
+                    if (response.data.status) {
+                        return {
+                            success: true,
+                            response: JSON.parse(JSON.stringify(response.data.response))
+                        };
+                    } else {
+                        return {
+                            success: false,
+                            error: response.data.message,
+                            erroCode: response.status
+                        };
+                    }
+                } else {
+                    return {
+                        success: false,
+                        error: response.data,
+                        erroCode: response.status
+                    };
+                }
+            } else {
+                return {
+                    success: false,
+                    error: "No server response",
+                    erroCode: "99"
+                };
+            }
+        } else {
+            return {
+                success: false,
+                error: "Invalid credentials",
+                errorCode: 99
+            };
+        }
+    } catch (error) {
+        console.log(error);
+        return {
+            success: false,
+            error: error.message,
+            errorCode: 99
+        };
+    }
+};
 
 LogystoSdk.prototype.getTraceabilityByCode = async (code) => {
     try {

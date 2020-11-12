@@ -9,5 +9,6 @@ module.exports = {
     getTraceabilityByCode : logystoSdk.getTraceabilityByCode,
     checkUserEmail : logystoSdk.checkUserEmail,
     checkAddressCoverage : logystoSdk.checkAddressCoverage,
-    sendNotificationOTP : logystoSdk.sendNotificationOTP
+    sendNotificationOTP : logystoSdk.sendNotificationOTP,
+    checkOtp: logystoSdk.checkOtp
 };
