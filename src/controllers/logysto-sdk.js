@@ -155,12 +155,20 @@ exports.checkUserEmail = async (email) => {
                 const response = await axios.post(ENDPOINT + constants.LOGYSTO_CHECK_USER_EMAIL, bodyRequest, options);
                 if (response) {
                     if (response.status == 200 || response.status == 201) {
-                        console.log("res >>>>", response.data.response);
+                        console.log("res >>>>", response.data);
                         let result = JSON.parse(JSON.stringify(response.data));
-                        return {
-                            success: true,
-                            response: result.message
-                        };
+                        if(result.status){
+                            return {
+                                success: true,
+                                response: result.message
+                            };
+                        }else{
+                            return {
+                                success: false,
+                                response: result.error
+                            };
+                        }
+                        
                     } else {
                         return {
                             success: false,
