@@ -2,92 +2,37 @@
 const axios = require("axios");
 const constants = require("../config/constants");
 
-var apiKey;
-var email;
-var type;
-var environment;
-var ENDPOINT = constants.LOGYSTO_END_POINT;
+let apiKey;
+let email;
+let type;
+let environment;
+let ENDPOINT = constants.LOGYSTO_END_POINT;
 
-exports.config = async (apiKey, email, environment = "production", type = "user") => {
-    this.apiKey = apiKey;
-    this.email = email;
-    this.type = type;
-    this.environment = environment;
+function LogystoSdk() {
+}
+
+LogystoSdk.prototype.config = (apiKeyInput, emailInput, environmentInput = "production", typeInput = "user") => {
+    apiKey = apiKeyInput;
+    email = emailInput;
+    type = typeInput;
+    environment = environmentInput;
     if (environment === "development") {
         ENDPOINT = constants.LOGYSTO_DEV_END_POINT;
     }
+    console.log(email, apiKey, environment, ENDPOINT);
     return {
         success: true,
         message: "Configured"
     };
 };
 
-
-exports.sendNotificationOTP = async function(mobilephone, message, email){
+LogystoSdk.prototype.checkAddressCoverage = async function(address, city){
     try {
-        if (this.apiKey && this.email) {
-            if (mobilephone && message && email) {
-                var options = {
-                    headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
-                };
-
-                const bodyRequest = {
-                    mobilephone: mobilephone,
-                    email: email,
-                    message: message
-                };
-
-                console.log("URL", ENDPOINT + constants.LOGYSTO_SEND_OTP);
-                const response = await axios.post(ENDPOINT + constants.LOGYSTO_SEND_OTP, bodyRequest, options);
-                if (response) {
-                    if (response.status == 200 || response.status == 201) {
-                        console.log("res >>>>", response.data.response);
-                        let result = JSON.parse(JSON.stringify(response.data.response));
-                        return {
-                            success: true,
-                            response: result
-                        };
-                    } else {
-                        return {
-                            success: false,
-                            error: response.data,
-                            erroCode: response.status
-                        };
-                    }
-                } else {
-                    return {
-                        success: false,
-                        error: "No server response",
-                        erroCode: "99"
-                    };
-                }
-
-            } else {
-                return { status: false, error: "Invalid params", errorCode: 99 };
-            }
-        } else {
-            return {
-                success: false,
-                error: "Invalid credentials",
-                errorCode: 99
-            };
-        }
-    } catch (error) {
-        return {
-            success: false,
-            error: error.message,
-            errorCode: 99
-        };
-    }
-};
-
-
-exports.checkAddressCoverage = async function(address, city){
-    try {
-        if (this.apiKey && this.email) {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
             if (address && city) {
                 var options = {
-                    headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                    headers: { "private-key": apiKey, "token": email, "type": type }
                 };
 
                 const bodyRequest = {
@@ -139,16 +84,85 @@ exports.checkAddressCoverage = async function(address, city){
     }
 };
 
-exports.checkUserEmail = async (email) => {
+
+LogystoSdk.prototype.sendNotificationOTP = async function(mobilephone, emailSend){
     try {
-        if (this.apiKey && this.email) {
-            if (email) {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
+            if (mobilephone && emailSend) {
                 var options = {
-                    headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                    headers: { "private-key": apiKey, "token": email, "type": type }
                 };
 
                 const bodyRequest = {
-                    "email": email
+                    mobilephone: mobilephone,
+                    email: emailSend
+                };
+
+                console.log("URL", ENDPOINT + constants.LOGYSTO_SEND_OTP);
+                const response = await axios.post(ENDPOINT + constants.LOGYSTO_SEND_OTP, bodyRequest, options);
+                if (response) {
+                    if (response.status == 200 || response.status == 201) {
+                        console.log("res >>>>", response.data.response);
+                        let result = JSON.parse(JSON.stringify(response.data));
+
+                        if(result.status){
+                            return {
+                                success: true,
+                                response: result.message
+                            };
+                        }else{
+                            return {
+                                success: false,
+                                response: result.error
+                            };
+                        }
+                       
+                    } else {
+                        return {
+                            success: false,
+                            error: response.data,
+                            erroCode: response.status
+                        };
+                    }
+                } else {
+                    return {
+                        success: false,
+                        error: "No server response",
+                        erroCode: "99"
+                    };
+                }
+
+            } else {
+                return { status: false, error: "Invalid params", errorCode: 99 };
+            }
+        } else {
+            return {
+                success: false,
+                error: "Invalid credentials",
+                errorCode: 99
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message,
+            errorCode: 99
+        };
+    }
+};
+
+LogystoSdk.prototype.checkUserEmail = async (emailSend) => {
+    try {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
+            if (emailSend) {
+                var options = {
+                    headers: { "private-key": apiKey, "token": email, "type": type }
+                };
+
+                const bodyRequest = {
+                    email: emailSend
                 };
 
                 console.log("URL", ENDPOINT + constants.LOGYSTO_CHECK_USER_EMAIL, email);
@@ -203,12 +217,12 @@ exports.checkUserEmail = async (email) => {
     }
 };
 
-
-exports.searchAddress = async (address, city) => {
+LogystoSdk.prototype.searchAddress = async (address, city) => {
     try {
-        if (this.apiKey && this.email) {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
             var options = {
-                headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                headers: { "private-key": apiKey, "token": email, "type": type }
             };
             console.log("URL", ENDPOINT + constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" + encodeURIComponent(address));
             const response = await axios.get(ENDPOINT + constants.LOGYSTO_SEARCH_ADDRESS_PATH + encodeURIComponent(city) + "/" + encodeURIComponent(address), options);
@@ -250,11 +264,12 @@ exports.searchAddress = async (address, city) => {
     }
 };
 
-exports.getPriceFromLocations = async (initLocation, endLocation) => {
+LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) => {
     try {
-        if (this.apiKey && this.email) {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
             const options = {
-                headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                headers: { "private-key": apiKey, "token": email, "type": type }
             };
             const locationsRequest = [];
             locationsRequest.push(initLocation);
@@ -312,7 +327,7 @@ exports.getPriceFromLocations = async (initLocation, endLocation) => {
     }
 };
 
-exports.createDelivery = async () => {
+LogystoSdk.prototype.createDelivery = async () => {
     try {
 
     } catch (error) {
@@ -325,13 +340,14 @@ exports.createDelivery = async () => {
 };
 
 
-exports.getTraceabilityByCode = async (code) => {
+LogystoSdk.prototype.getTraceabilityByCode = async (code) => {
     try {
+        console.log("cred", apiKey, email);
         if (code) {
             if (Number(code)) {
-                if (this.apiKey && this.email) {
+                if (apiKey && email) {
                     const options = {
-                        headers: { "private-key": this.apiKey, "token": this.email, "type": this.type }
+                        headers: { "private-key": apiKey, "token": email, "type": type }
                     };
                     console.log("URL", ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code);
                     const response = await axios.get(ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code, options);
@@ -394,3 +410,6 @@ exports.getTraceabilityByCode = async (code) => {
         };
     }
 };
+
+
+module.exports =  LogystoSdk;

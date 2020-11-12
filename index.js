@@ -1,17 +1,13 @@
 'use-stric';
-const {
-    config,
-    getPriceFromLocations,
-    searchAddress,
-    getTraceabilityByCode,
-    checkUserEmail,
-    checkAddressCoverage,
-    sendNotificationOTP
-} = require("./src/controllers/logysto-sdk");
-exports.config = config;
-exports.getPrice = getPriceFromLocations;
-exports.searchAddress = searchAddress;
-exports.getTraceabilityByCode = getTraceabilityByCode;
-exports.checkUserEmail = checkUserEmail;
-exports.checkAddressCoverage = checkAddressCoverage;
-exports.sendNotificationOTP = sendNotificationOTP;
+const LogystoSdk = require("./src/controllers/logysto-sdk");
+const logystoSdk = new LogystoSdk();
+
+module.exports = {
+    config : logystoSdk.config,
+    getPrice : logystoSdk.getPriceFromLocations,
+    searchAddress : logystoSdk.searchAddress,
+    getTraceabilityByCode : logystoSdk.getTraceabilityByCode,
+    checkUserEmail : logystoSdk.checkUserEmail,
+    checkAddressCoverage : logystoSdk.checkAddressCoverage,
+    sendNotificationOTP : logystoSdk.sendNotificationOTP
+};
