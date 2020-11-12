@@ -397,10 +397,6 @@ LogystoSdk.prototype.checkOtp = async(otp, mobilephone, email = null) =>{
             const options = {
                 headers: { "private-key": apiKey, "token": email, "type": type }
             };
-            const locationsRequest = [];
-            locationsRequest.push(initLocation);
-            locationsRequest.push(endLocation);
-
             const bodyRequest = {
                 mobilephone: mobilephone,
                 otp: otp,
@@ -413,12 +409,12 @@ LogystoSdk.prototype.checkOtp = async(otp, mobilephone, email = null) =>{
                     if (response.data.status) {
                         return {
                             success: true,
-                            response: JSON.parse(JSON.stringify(response.data.response))
+                            response: JSON.parse(JSON.stringify(response.data))
                         };
                     } else {
                         return {
                             success: false,
-                            error: response.data.message,
+                            error: response.data.error,
                             erroCode: response.status
                         };
                     }
