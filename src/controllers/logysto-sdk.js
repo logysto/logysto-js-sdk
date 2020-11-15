@@ -343,8 +343,8 @@ LogystoSdk.prototype.createDelivery = async () => {
                 is_roundtrip: false,
                 locations: locationsRequest
             };
-            console.log("URL", ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH);
-            const response = await axios.post(ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH, bodyRequest, options);
+            console.log("URL", ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY);
+            const response = await axios.post(ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY, bodyRequest, options);
             if (response) {
                 if (response.status == 200 || response.status == 201) {
                     if (response.data.status) {
