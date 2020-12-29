@@ -272,14 +272,19 @@ LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) =
                 headers: { "private-key": apiKey, "token": email, "type": type }
             };
             const locationsRequest = [];
-            locationsRequest.push(initLocation);
-            locationsRequest.push(endLocation);
+            const locationOne = [initLocation];
+            const locationTwo= [endLocation];
+            const firstRoute = [locationOne, locationTwo];
+            locationsRequest.push(firstRoute);
 
             const bodyRequest = {
                 insurance_value: 0,
                 is_roundtrip: false,
-                locations: locationsRequest
+                step_charging: false,
+                user_type: "messaging",
+                routes: JSON.stringify(locationsRequest)
             };
+            console.debug(bodyRequest);
             console.log("URL", ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH);
             const response = await axios.post(ENDPOINT + constants.LOGYSTO_GET_PRICE_PATH, bodyRequest, options);
             if (response) {
