@@ -10,5 +10,6 @@ module.exports = {
     checkUserEmail : logystoSdk.checkUserEmail,
     checkAddressCoverage : logystoSdk.checkAddressCoverage,
     sendNotificationOTP : logystoSdk.sendNotificationOTP,
-    checkOtp: logystoSdk.checkOtp
+    checkOtp: logystoSdk.checkOtp,
+    createDelivery: logystoSdk.createDelivery,
 };

@@ -332,21 +332,22 @@ LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) =
     }
 };
 
-LogystoSdk.prototype.createDelivery = async () => {
+LogystoSdk.prototype.createDelivery = async (city, insuranceAmount, initLocation, endLocation) => {
     try {
         console.log("cred", apiKey, email);
         if (apiKey && email) {
             const options = {
                 headers: { "private-key": apiKey, "token": email, "type": type }
             };
-            const locationsRequest = [];
-            locationsRequest.push(initLocation);
-            locationsRequest.push(endLocation);
+
+            const addresses = [];
+            addresses.push(initLocation);
+            addresses.push(endLocation);
 
             const bodyRequest = {
-                insurance_value: 0,
-                is_roundtrip: false,
-                locations: locationsRequest
+                city: city,
+                insurance_amount: insuranceAmount,
+                addresses: addresses
             };
             console.log("URL", ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY);
             const response = await axios.post(ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY, bodyRequest, options);
@@ -454,7 +455,7 @@ LogystoSdk.prototype.checkOtp = async(otp, mobilephone, email = null) =>{
     }
 };
 
-LogystoSdk.prototype.getTraceabilityByCode = async (code) => {
+LogystoSdk.prototype.getTraceabilityByCode = async (code, userEmail) => {
     try {
         console.log("cred", apiKey, email);
         if (code) {
@@ -463,15 +464,15 @@ LogystoSdk.prototype.getTraceabilityByCode = async (code) => {
                     const options = {
                         headers: { "private-key": apiKey, "token": email, "type": type }
                     };
-                    console.log("URL", ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code);
-                    const response = await axios.get(ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code, options);
+                    console.log("URL", ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code + "/" + userEmail);
+                    const response = await axios.get(ENDPOINT + constants.LOGYSTO_GET_TRACE_BY_CODE + code + "/" + userEmail, options);
 
                     if (response) {
                         if (response.data) {
                             if (response.data.status) {
                                 return {
                                     success: true,
-                                    response: JSON.parse(JSON.stringify(response.data.response))
+                                    response: JSON.stringify(response.data.response)
                                 };
                             } else {
                                 return {
