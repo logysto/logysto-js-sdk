@@ -109,7 +109,8 @@ LogystoSdk.prototype.sendNotificationOTP = async function(mobilephone, emailSend
                         if(result.status){
                             return {
                                 success: true,
-                                response: result.message
+                                response: result.message,
+                                user: result.user
                             };
                         }else{
                             return {

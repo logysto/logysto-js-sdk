@@ -1,7 +1,7 @@
 {
   "name": "logysto-js-sdk",
   "__name__": "@logysto/logysto-js-sdk",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "Logysto SDK Api",
   "license": "MIT",
   "__publishConfig__": { "registry": "https://npm.pkg.github.com/" },
