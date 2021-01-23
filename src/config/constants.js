@@ -4,7 +4,7 @@ module.exports = {
     LOGYSTO_GET_PRICE_PATH: "/GetPriceFromRoutes/",
     LOGYSTO_SEARCH_ADDRESS_PATH: "/Addresses/Search/",
     LOGYSTO_GET_TRACE_BY_CODE: "/DeliveryTraceByCodeAndEmail/",
-    LOGYSTO_CREATE_DELIVERY: "/Delivery/CreateDeliveriesByJson",
+    LOGYSTO_CREATE_DELIVERY: "/DeliveryItem/CreateMultipleRoute",
     LOGYSTO_CHECK_USER_EMAIL: "/User/Check/Email",
     LOGYSTO_CHECK_ADDRESS_AVAILABILITY: "/Addres/Check",
     LOGYSTO_SEND_OTP: "/User/Send/Otp",

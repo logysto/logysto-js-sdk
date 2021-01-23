@@ -332,7 +332,7 @@ LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) =
     }
 };
 
-LogystoSdk.prototype.createDelivery = async (city, insuranceAmount, initLocation, endLocation) => {
+LogystoSdk.prototype.createDelivery = async (user, delivery, pay) => {
     try {
         console.log("cred", apiKey, email);
         if (apiKey && email) {
@@ -345,9 +345,9 @@ LogystoSdk.prototype.createDelivery = async (city, insuranceAmount, initLocation
             addresses.push(endLocation);
 
             const bodyRequest = {
-                city: city,
-                insurance_amount: insuranceAmount,
-                addresses: addresses
+                user: user,
+                delivery: delivery,
+                pay: pay
             };
             console.log("URL", ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY);
             const response = await axios.post(ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY, bodyRequest, options);
