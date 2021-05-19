@@ -6,18 +6,20 @@ let apiKey;
 let email;
 let type;
 let environment;
-let ENDPOINT = constants.LOGYSTO_END_POINT;
+let ENDPOINT = constants.LOGYSTO_DEV_END_POINT;
 
 function LogystoSdk() {
 }
 
-LogystoSdk.prototype.config = (apiKeyInput, emailInput, environmentInput = "production", typeInput = "user") => {
+LogystoSdk.prototype.config = (apiKeyInput, emailInput, environmentInput="development", typeInput = "user") => {
     apiKey = apiKeyInput;
     email = emailInput;
     type = typeInput;
     environment = environmentInput;
     if (environment === "development") {
         ENDPOINT = constants.LOGYSTO_DEV_END_POINT;
+    }else {
+        ENDPOINT = constants.LOGYSTO_END_POINT;
     }
     console.log(email, apiKey, environment, ENDPOINT);
     return {
@@ -268,6 +270,7 @@ LogystoSdk.prototype.searchAddress = async (address, city) => {
 LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) => {
     try {
         console.log("cred", apiKey, email);
+        console.log("getPriceFromLocations");
         if (apiKey && email) {
             const options = {
                 headers: { "private-key": apiKey, "token": email, "type": type }
@@ -333,23 +336,29 @@ LogystoSdk.prototype.getPriceFromLocations = async (initLocation, endLocation) =
     }
 };
 
-LogystoSdk.prototype.createDelivery = async (user, delivery, pay) => {
+LogystoSdk.prototype.createDelivery = async (user_token, delivery, user) => {
     try {
         console.log("cred", apiKey, email);
+        console.log("user_token ", user_token);
+
+        console.log("delivery "+delivery.city);
+
         if (apiKey && email) {
             const options = {
                 headers: { "private-key": apiKey, "token": email, "type": type }
             };
 
-            const addresses = [];
+            /*const addresses = [];
             addresses.push(initLocation);
-            addresses.push(endLocation);
+            addresses.push(endLocation);*/
 
             const bodyRequest = {
-                user: user,
+                user_token: user_token,
                 delivery: delivery,
-                pay: pay
+                user: user
             };
+
+            console.log(bodyRequest);
             console.log("URL", ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY);
             const response = await axios.post(ENDPOINT + constants.LOGYSTO_CREATE_DELIVERY, bodyRequest, options);
             if (response) {

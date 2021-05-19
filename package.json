@@ -1,7 +1,7 @@
 {
   "name": "logysto-js-sdk",
   "__name__": "@logysto/logysto-js-sdk",
-  "version": "1.0.33",
+  "version": "1.0.51",
   "description": "Logysto SDK Api",
   "license": "MIT",
   "__publishConfig__": { "registry": "https://npm.pkg.github.com/" },
@@ -17,9 +17,9 @@
     "test": "mocha --reporter spec"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
-    "typescript": "^4.1.3"
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "axios": "^0.21.1"
