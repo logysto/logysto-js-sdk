@@ -432,22 +432,23 @@ LogystoSdk.prototype.checkOtp = async(otp, mobilephone, email = null) =>{
             const response = await axios.post(ENDPOINT + constants.LOGYSTO_CHECK_OTP, bodyRequest, options);
             if (response) {
                 if (response.status == 200 || response.status == 201) {
-                    if (response.data.status) {
+                    if (response.status) {
                         return {
                             success: true,
-                            response: JSON.parse(JSON.stringify(response.data))
+                            message: response.message,
+                            token: response.token
                         };
                     } else {
                         return {
                             success: false,
-                            error: response.data.error,
+                            error: response.error,
                             erroCode: response.status
                         };
                     }
                 } else {
                     return {
                         success: false,
-                        error: response.data,
+                        error: response.error,
                         erroCode: response.status
                     };
                 }
