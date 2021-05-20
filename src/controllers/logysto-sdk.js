@@ -232,10 +232,20 @@ LogystoSdk.prototype.searchAddress = async (address, city) => {
                 if (response.status == 200 || response.status == 201) {
                     console.log("res >>>>", response.data.response);
                     let result = JSON.parse(JSON.stringify(response.data.response));
-                    return {
-                        success: true,
-                        response: result
-                    };
+
+                    if(response.data.status){
+                        return {
+                            success: true,
+                            response: result
+                        };
+                    }else{
+                        return {
+                            success: false,
+                            error: response.data,
+                            erroCode: response.status
+                        };
+                    }
+                  
                 } else {
                     return {
                         success: false,
