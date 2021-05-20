@@ -4,7 +4,7 @@ const constants = require("../config/constants");
 
 let apiKey;
 let email;
-let type;
+let type = "user";
 let environment;
 let ENDPOINT = constants.LOGYSTO_DEV_END_POINT;
 
@@ -14,7 +14,6 @@ function LogystoSdk() {
 LogystoSdk.prototype.config = (apiKeyInput, emailInput, environmentInput="development", typeInput = "user") => {
     apiKey = apiKeyInput;
     email = emailInput;
-    type = typeInput;
     environment = environmentInput;
     if (environment === "development") {
         ENDPOINT = constants.LOGYSTO_DEV_END_POINT;
