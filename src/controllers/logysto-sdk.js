@@ -176,7 +176,8 @@ LogystoSdk.prototype.checkUserEmail = async (emailSend) => {
                         if(result.status){
                             return {
                                 success: true,
-                                response: result.message
+                                response: result.message,
+                                mobilephone: result.mobilephone
                             };
                         }else{
                             return {
