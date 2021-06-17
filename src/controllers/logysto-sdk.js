@@ -548,5 +548,73 @@ LogystoSdk.prototype.getTraceabilityByCode = async (code, userEmail) => {
     }
 };
 
+LogystoSdk.prototype.notifyNotDelivery = async (option, code_service, mobile, address, lat, lon, presumed_receptionist_name) => {
+    try {
+        console.log("cred", apiKey, email);
+        if (apiKey && email) {
+            const options = {
+                headers: { "private-key": apiKey, "token": email, "type": type }
+            };
+
+            const bodyRequest = {
+                option: option,
+                code_service: code_service,
+                mobile: mobile,
+                address: address,
+                lat: lat,
+                lon: lon,
+                presumed_receptionist_name: presumed_receptionist_name
+            };
+
+            console.log(bodyRequest);
+            console.log("URL", ENDPOINT + constants.LOGYSTO_RESPONSE_MESSENGER);
+            const response = await axios.post(ENDPOINT + constants.LOGYSTO_RESPONSE_MESSENGER, bodyRequest, options);
+            if (response) {
+                if (response.status == 200 || response.status == 201) {
+                    console.log("res >>>>", response.data.response);
+                    let result = JSON.parse(JSON.stringify(response.data.response));
+
+                    if(response.data.status){
+                        return {
+                            success: true,
+                            response: result
+                        };
+                    }else{
+                        return {
+                            success: false,
+                            error: response.data,
+                            erroCode: response.status
+                        };
+                    }
+                } else {
+                    return {
+                        success: false,
+                        error: response.data,
+                        erroCode: response.status
+                    };
+                }
+            } else {
+                return {
+                    success: false,
+                    error: "No server response",
+                    erroCode: "99"
+                };
+            }
+        } else {
+            return {
+                success: false,
+                error: "Invalid credentials",
+                errorCode: 99
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message,
+            errorCode: 99
+        };
+    }
+};
+
 
 module.exports =  LogystoSdk;

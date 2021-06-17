@@ -9,5 +9,6 @@ module.exports = {
     LOGYSTO_CHECK_ADDRESS_AVAILABILITY: "/Addres/Check",
     LOGYSTO_SEND_OTP: "/User/Send/Otp",
     LOGYSTO_CHECK_OTP: "/User/Check/Otp",
+    LOGYSTO_RESPONSE_MESSENGER: "/Bot/SendResponseOfBotmakerToMessenger",
     
 };

@@ -12,4 +12,5 @@ module.exports = {
     sendNotificationOTP : logystoSdk.sendNotificationOTP,
     checkOtp: logystoSdk.checkOtp,
     createDelivery: logystoSdk.createDelivery,
+    notifyNotDelivery: logystoSdk.notifyNotDelivery
 };
