@@ -548,7 +548,7 @@ LogystoSdk.prototype.getTraceabilityByCode = async (code, userEmail) => {
     }
 };
 
-LogystoSdk.prototype.notifyNotDelivery = async (option, code_service, mobile, address, lat, lon, presumed_receptionist_name) => {
+LogystoSdk.prototype.notifyNotDelivery = async (option, code_service, mobile, address, lat, lon, presumed_receptionist_name, presumed_receptionist_identification, details) => {
     try {
         console.log("cred", apiKey, email);
         if (apiKey && email) {
@@ -563,7 +563,9 @@ LogystoSdk.prototype.notifyNotDelivery = async (option, code_service, mobile, ad
                 address: address,
                 lat: lat,
                 lon: lon,
-                presumed_receptionist_name: presumed_receptionist_name
+                presumed_receptionist_name: presumed_receptionist_name,
+                presumed_receptionist_identification: presumed_receptionist_identification,
+                details: details
             };
 
             console.log(bodyRequest);
